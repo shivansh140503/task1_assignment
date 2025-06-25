@@ -9,18 +9,19 @@ export default function DashboardCards({ employees }) {
   }).length;
 
   const data = [
-    { title: "Total Employees", value: total, color: "bg-blue-500" },
-    { title: "Present Today", value: present, color: "bg-green-500" },
-    { title: "On Leave", value: leave, color: "bg-yellow-500" },
-    { title: "New This Month", value: newThisMonth, color: "bg-purple-500" },
+    { title: "Total Employees", value: total, icon: "👥" },
+    { title: "Present Today", value: present, icon: "✅" },
+    { title: "On Leave", value: leave, icon: "🌴" },
+    { title: "New This Month", value: newThisMonth, icon: "✨" },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="dashboard-cards">
       {data.map((c, i) => (
-        <div key={i} className={`${c.color} text-white p-6 rounded-lg shadow`}>
-          <h3 className="text-sm">{c.title}</h3>
-          <p className="text-2xl font-bold">{c.value}</p>
+        <div key={i} className="dashboard-card">
+          <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{c.icon}</div>
+          <h3>{c.title}</h3>
+          <p>{c.value}</p>
         </div>
       ))}
     </div>

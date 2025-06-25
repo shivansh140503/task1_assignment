@@ -1,0 +1,79 @@
+/* Custom styles for Flam HR Dashboard - complements Tailwind CSS */
+
+/* Card shadow and hover effect */
+.card-custom {
+  box-shadow: 0 4px 24px 0 rgba(37, 99, 235, 0.08), 0 1.5px 4px 0 rgba(0,0,0,0.04);
+  transition: transform 0.15s cubic-bezier(.4,0,.2,1), box-shadow 0.15s cubic-bezier(.4,0,.2,1);
+}
+.card-custom:hover {
+  transform: translateY(-2px) scale(1.025);
+  box-shadow: 0 8px 32px 0 rgba(37, 99, 235, 0.12), 0 2px 8px 0 rgba(0,0,0,0.06);
+}
+
+/* Gradient backgrounds for cards */
+.card-gradient-blue {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f9ff 100%);
+}
+.card-gradient-green {
+  background: linear-gradient(135deg, #d1fae5 0%, #f0fdf4 100%);
+}
+.card-gradient-yellow {
+  background: linear-gradient(135deg, #fef9c3 0%, #fefce8 100%);
+}
+.card-gradient-purple {
+  background: linear-gradient(135deg, #ede9fe 0%, #f5f3ff 100%);
+}
+
+/* Table zebra striping */
+.table-zebra tbody tr:nth-child(odd) {
+  background-color: #f9fafb;
+}
+
+/* Sticky table header */
+.table-sticky thead th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+}
+
+/* Microinteraction: focus ring for inputs/buttons */
+.focus-ring:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #bfdbfe;
+}
+
+/* Custom scrollbar for tables and sidebars */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Brand accent for buttons */
+.btn-accent {
+  background: linear-gradient(90deg, #3b82f6 0%, #6366f1 100%);
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px 0 rgba(59,130,246,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-accent:hover {
+  background: linear-gradient(90deg, #2563eb 0%, #7c3aed 100%);
+  box-shadow: 0 4px 16px 0 rgba(99,102,241,0.12);
+}
+
+/* Utility for subtle fade-in */
+.fade-in {
+  animation: fadeIn 0.6s cubic-bezier(.4,0,.2,1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+} 

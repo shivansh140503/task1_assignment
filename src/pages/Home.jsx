@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import useBookmarks from "../hooks/useBookmarks";
 
 export default function Home() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [selectedRatings, setSelectedRatings] = useState([]);
+  const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
+  const navigate = useNavigate();
 
   const departments = ["Engineering", "Design", "HR", "Marketing", "Support"];
   const ratings = [1, 2, 3, 4, 5];
@@ -47,28 +49,25 @@ export default function Home() {
   };
 
   return (
-    <div className="p-6">
+    <div style={{ padding: '2rem' }}>
       {/* Filters */}
-      <div className="mb-6 space-y-4 md:flex md:items-center md:justify-between">
+      <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <input
           type="text"
           placeholder="Search by name, email or department..."
-          className="border px-3 py-2 rounded w-full md:w-1/2"
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
-
-        {/* Filter pills */}
-        <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
           {departments.map(dept => (
             <button
               key={dept}
               onClick={() => toggleFilter(selectedDepartments, setSelectedDepartments, dept)}
-              className={`px-3 py-1 rounded-full text-sm border ${
+              className={
                 selectedDepartments.includes(dept)
-                  ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-white text-gray-700 border-gray-300"
-              }`}
+                  ? "filter-pill filter-pill-active"
+                  : "filter-pill"
+              }
             >
               {dept}
             </button>
@@ -77,11 +76,11 @@ export default function Home() {
             <button
               key={rating}
               onClick={() => toggleFilter(selectedRatings, setSelectedRatings, rating)}
-              className={`px-3 py-1 rounded-full text-sm border ${
+              className={
                 selectedRatings.includes(rating)
-                  ? "bg-yellow-500 text-white border-yellow-500"
-                  : "bg-white text-gray-700 border-gray-300"
-              }`}
+                  ? "filter-pill filter-pill-active"
+                  : "filter-pill"
+              }
             >
               {rating}★
             </button>
@@ -90,29 +89,30 @@ export default function Home() {
       </div>
 
       {/* User Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="dashboard-cards">
         {filteredUsers.map(user => (
-          <div key={user.id} className="bg-white p-4 rounded-lg shadow">
-            <h2 className="font-bold text-lg mb-1">{user.firstName} {user.lastName}</h2>
-            <p className="text-sm text-gray-600">{user.email}</p>
-            <p className="text-sm text-gray-500">Age: {user.age}</p>
-            <p className="text-sm text-gray-500 mb-2">Department: {user.department}</p>
+          <div key={user.id} className="dashboard-card">
+            <h2 style={{ fontWeight: 700, fontSize: '1.2rem', marginBottom: '0.25rem' }}>{user.firstName} {user.lastName}</h2>
+            <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: 2 }}>{user.email}</p>
+            <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: 2 }}>Age: {user.age}</p>
+            <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: 8 }}>Department: {user.department}</p>
 
             {/* Rating */}
-            <div className="flex items-center mb-2">
+            <div style={{ marginBottom: 8 }}>
               {[...Array(5)].map((_, i) => (
-                <span key={i} className={i < user.rating ? "text-yellow-400" : "text-gray-300"}>★</span>
+                <span key={i} style={{ color: i < user.rating ? '#facc15' : '#d1d5db', fontSize: '1.1rem' }}>★</span>
               ))}
             </div>
 
             {/* Buttons */}
-            <div className="flex gap-2">
-            <Link to={`/employee/${user.id}`}>
-                <button className="bg-blue-500 text-white px-3 py-1 text-sm rounded">View</button>
-            </Link>
-              <button className="bg-blue-500 text-white px-3 py-1 text-sm rounded">View</button>
-              <button className="bg-gray-200 text-gray-800 px-3 py-1 text-sm rounded">Bookmark</button>
-              <button className="bg-green-500 text-white px-3 py-1 text-sm rounded">Promote</button>
+            <div style={{ display: 'flex', gap: '0.5rem', marginTop: 8, justifyContent: 'center' }}>
+              <Link to={`/employee/${user.id}`}><button className="button-accent">View</button></Link>
+              {isBookmarked(user.id) ? (
+                <button className="button-accent" onClick={() => removeBookmark(user.id)} title="Remove Bookmark">Bookmarked</button>
+              ) : (
+                <button className="button-accent" onClick={() => addBookmark(user)} title="Add Bookmark">Bookmark</button>
+              )}
+              <button className="button-accent">Promote</button>
             </div>
           </div>
         ))}
