@@ -7,7 +7,8 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [selectedRatings, setSelectedRatings] = useState([]);
-  const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
+  const [showBookmarked, setShowBookmarked] = useState(false);
+  const { addBookmark, removeBookmark, isBookmarked, bookmarks } = useBookmarks();
   const navigate = useNavigate();
 
   const departments = ["Engineering", "Design", "HR", "Marketing", "Support"];
@@ -26,7 +27,7 @@ export default function Home() {
       });
   }, []);
 
-  const filteredUsers = users.filter(user => {
+  let filteredUsers = users.filter(user => {
     const nameMatch =
       `${user.firstName} ${user.lastName}`.toLowerCase().includes(search.toLowerCase());
     const emailMatch = user.email.toLowerCase().includes(search.toLowerCase());
@@ -39,6 +40,10 @@ export default function Home() {
 
     return (nameMatch || emailMatch || deptMatch) && departmentMatch && ratingMatch;
   });
+
+  if (showBookmarked) {
+    filteredUsers = filteredUsers.filter(user => isBookmarked(user.id));
+  }
 
   const toggleFilter = (filterState, setFilter, value) => {
     setFilter(prev =>
@@ -59,6 +64,13 @@ export default function Home() {
           onChange={e => setSearch(e.target.value)}
         />
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <button
+            className={showBookmarked ? "filter-pill filter-pill-active" : "filter-pill"}
+            onClick={() => setShowBookmarked(b => !b)}
+            style={{ minWidth: 120 }}
+          >
+            {showBookmarked ? "Showing Bookmarked" : "Show Bookmarked"}
+          </button>
           {departments.map(dept => (
             <button
               key={dept}
@@ -106,7 +118,7 @@ export default function Home() {
 
             {/* Buttons */}
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: 8, justifyContent: 'center' }}>
-              <Link to={`/employee/${user.id}`}><button className="button-accent">View</button></Link>
+              <Link to={`/employee/${user.id}`} style={{ textDecoration: 'none' }}><button className="button-accent">View</button></Link>
               {isBookmarked(user.id) ? (
                 <button className="button-accent" onClick={() => removeBookmark(user.id)} title="Remove Bookmark">Bookmarked</button>
               ) : (

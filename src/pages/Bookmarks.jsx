@@ -22,10 +22,11 @@ export default function Bookmarks() {
                   <span key={i} style={{ color: i < user.rating ? '#facc15' : '#d1d5db', fontSize: '1.1rem' }}>★</span>
                 ))}
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem', marginTop: 8 }}>
-                <Link to={`/employee/${user.id}`}><button className="button-accent">View</button></Link>
-                <button className="button-accent" onClick={() => removeBookmark(user.id)} title="Remove Bookmark">Remove</button>
-                <button className="button-accent">Promote</button>
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: 8, justifyContent: 'center' }}>
+                <Link to={`/employee/${user.id}`} style={{ textDecoration: 'none' }}><button className="button-accent">View</button></Link>
+                <button className="button-accent" onClick={() => removeBookmark(user.id)} title="Remove Bookmark">Bookmarked</button>
+                <button className="button-accent" title="Promote">Promote</button>
+                <button className="button-accent" title="Assign to Project">Assign to Project</button>
               </div>
             </div>
           ))}
