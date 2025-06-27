@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # Flam HR Dashboard
 
-An interactive, modern, and user-friendly HR Dashboard built using React, Vite, TailwindCSS, and Chart.js.
+An interactive, modern, and user-friendly HR Dashboard built using React, Vite, CSS, and Chart.js.
 
 This project streamlines employee management, analytics, and reporting with a clean UI and real-time interactivity. Ideal for HR professionals to manage teams, track performance, and gain insights.
 
@@ -37,6 +37,7 @@ This project streamlines employee management, analytics, and reporting with a cl
 * View bookmarked employees
 * Remove from bookmarks
 * Simulate promote/assign actions
+* Custon CSS used for styling instead of TailwindCSS
 
 ### 4. Analytics (`/analytics`)
 
@@ -59,7 +60,7 @@ This project streamlines employee management, analytics, and reporting with a cl
 | ----------- | --------------------------- |
 | React       | Frontend framework          |
 | Vite        | Development and build tool  |
-| TailwindCSS | Utility-first CSS styling   |
+| CSS         | Styling and Layout          |
 | Chart.js    | Interactive charts/graphs   |
 | dummyjson   | Mock API for realistic data |
 | Context API | Global state management     |
