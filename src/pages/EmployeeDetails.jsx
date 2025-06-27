@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useBookmarks from "../hooks/useBookmarks";
+import '../custom.css';
 
 const TABS = ["Overview", "Projects", "Feedback"];
 
@@ -9,6 +10,7 @@ export default function EmployeeDetails() {
   const [employee, setEmployee] = useState(null);
   const [activeTab, setActiveTab] = useState("Overview");
   const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://dummyjson.com/users/${id}`)
@@ -38,6 +40,7 @@ export default function EmployeeDetails() {
 
   return (
     <div className="employee-detail-card">
+      <button onClick={() => navigate(-1)} className="button-accent" style={{ marginBottom: 24 }}>&larr; Back</button>
       {/* Profile Photo */}
       <img
         className="profile-photo"
@@ -87,12 +90,12 @@ export default function EmployeeDetails() {
       </div>
 
       {/* Tabs */}
-      <div className="employee-detail-tabs">
+      <div className="tab-bar">
         {TABS.map(tab => (
           <button
             key={tab}
-            className={`employee-detail-tab${activeTab === tab ? ' active' : ''}`}
             onClick={() => setActiveTab(tab)}
+            className={`tab-btn${activeTab === tab ? ' active' : ''}`}
           >
             {tab}
           </button>

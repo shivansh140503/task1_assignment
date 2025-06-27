@@ -11,6 +11,7 @@ import {
   PointElement,
   LineElement
 } from "chart.js";
+import { useNavigate } from "react-router-dom";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PointElement, LineElement);
 
@@ -19,6 +20,7 @@ const departments = ["Engineering", "Design", "HR", "Marketing", "Support"];
 export default function Analytics() {
   const [avgRatings, setAvgRatings] = useState([4, 3.5, 4.2, 3.8, 4.1]); // Mocked
   const [bookmarkTrends, setBookmarkTrends] = useState([2, 4, 6, 8, 10, 12, 14]); // Mocked
+  const navigate = useNavigate();
 
   const barData = {
     labels: departments,
@@ -48,6 +50,7 @@ export default function Analytics() {
 
   return (
     <div style={{ padding: '2rem' }}>
+      <button onClick={() => navigate(-1)} className="button-accent" style={{ marginBottom: 24 }}>&larr; Back</button>
       <h1 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '2rem', color: '#2563eb' }}>Analytics</h1>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center' }}>
         <div style={{ background: '#fff', borderRadius: '1rem', boxShadow: '0 4px 24px 0 rgba(37,99,235,0.08)', padding: '2rem', minWidth: 320, maxWidth: 400 }}>
